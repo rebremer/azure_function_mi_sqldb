@@ -5,7 +5,8 @@ import struct
 import os
 import azure.functions as func
 
-# Make sure the following user is added 
+# Make sure that Managed Identity is turned on for your Azure Function/web app
+# Make also sure the following user is added in your SQLDB
 # 
 # CREATE USER [<<Azure Function Identity Name>>] FROM EXTERNAL PROVIDER;
 # EXEC sp_addrolemember [db_datareader], [<<Azure Function Identity Name>>]
