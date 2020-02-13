@@ -32,8 +32,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         exptoken += bytes(1)
     tokenstruct = struct.pack("=i", len(exptoken)) + exptoken
 
-    server  = 'test-edlprod1-dbs.database.windows.net'
-    database = 'blog-adfv2sec-sqldb'
+    server  = '<<your sql server name>>.windows.net'
+    database = '<<your database name>>'
     connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database
     #tokenstruct = struct.pack("=i", len(exptoken)) + exptoken
     conn = pyodbc.connect(connstr, attrs_before = { 1256:tokenstruct })
