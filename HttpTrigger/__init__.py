@@ -10,6 +10,8 @@ import azure.functions as func
 # CREATE USER [<<Azure Function Identity Name>>] FROM EXTERNAL PROVIDER;
 # EXEC sp_addrolemember [db_datareader], [<<Azure Function Identity Name>>]
 # 
+# See also https://stackoverflow.com/questions/57849384/error-in-azure-sql-server-database-connection-using-azure-function-for-python-wi
+#
 
 msi_endpoint = os.environ["MSI_ENDPOINT"]
 msi_secret = os.environ["MSI_SECRET"]
