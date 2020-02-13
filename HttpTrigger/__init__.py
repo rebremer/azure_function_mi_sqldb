@@ -36,7 +36,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     server  = '<<your sql server name>>.windows.net'
     database = '<<your database name>>'
     connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database
-    #tokenstruct = struct.pack("=i", len(exptoken)) + exptoken
+ 
     conn = pyodbc.connect(connstr, attrs_before = { 1256:tokenstruct })
     
     cursor = conn.cursor()
