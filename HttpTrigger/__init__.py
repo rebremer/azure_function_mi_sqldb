@@ -5,17 +5,16 @@ import struct
 import os
 import azure.functions as func
 
-# Make sure that Managed Identity is turned on for your Azure Function/web app
-# Make also sure the following user is added in your SQLDB
+# Make sure the following user is added 
 # 
 # CREATE USER [<<Azure Function Identity Name>>] FROM EXTERNAL PROVIDER;
 # EXEC sp_addrolemember [db_datareader], [<<Azure Function Identity Name>>]
 # 
-# See also https://stackoverflow.com/questions/57849384/error-in-azure-sql-server-database-connection-using-azure-function-for-python-wi
-#
 
 msi_endpoint = os.environ["MSI_ENDPOINT"]
 msi_secret = os.environ["MSI_SECRET"]
+server  = os.environ["sqlserver"] + ".database.windows.net"
+database = os.environ["sqldb"]
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
@@ -33,10 +32,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         exptoken += bytes(1)
     tokenstruct = struct.pack("=i", len(exptoken)) + exptoken
 
-    server  = '<<your sql server name>>.windows.net'
-    database = '<<your database name>>'
     connstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database
- 
+    #tokenstruct = struct.pack("=i", len(exptoken)) + exptoken
     conn = pyodbc.connect(connstr, attrs_before = { 1256:tokenstruct })
     
     cursor = conn.cursor()
